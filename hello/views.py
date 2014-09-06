@@ -13,17 +13,19 @@ from logging import getLogger
 logger = getLogger('hello.debug')
 
 def handle_top(request):
-    logger.debug('handlJe_top')
-    # What you want the button to do.
+    logger.debug('handle_top()')
+    base_url = 'https://' + SERVER_FQDN
+    notify_url = base_url + reverse('paypal-ipn')
+    logger.debug('notify_url: "{}"'.format(notify_url))
     paypal_dict = {
         "business": settings.PAYPAL_RECEIVER_EMAIL,
         "amount": "100.00",
         "currency_code": "JPY",
         "item_name": "Nicely-looking Hello",
         "invoice": "unique-invoice-id-now",
-        "notify_url": "https://" + SERVER_FQDN + reverse('paypal-ipn'),
-        "return_url": "https://" + SERVER_FQDN + reverse('hello-return'),
-        "cancel_return": "https://" + SERVER_FQDN + reverse('hello-cancel'),
+        "notify_url": notify_url,
+        "return_url": base_url + reverse('hello-return'),
+        "cancel_return": base_url + reverse('hello-cancel'),
     }
 
     # Create the instance.
