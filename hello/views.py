@@ -13,7 +13,8 @@ from logging import getLogger
 logger = getLogger('hello.debug')
 
 def handle_top(request):
-    logger.debug('handle_top()')
+    remote_addr = request.META.get('REMOTE_ADDR')
+    logger.debug('handle_top() {}'.format(remote_addr))
     base_url = 'https://' + SERVER_FQDN
     notify_url = base_url + reverse('paypal-ipn')
     logger.debug('notify_url: "{}"'.format(notify_url))
@@ -35,9 +36,13 @@ def handle_top(request):
 
 
 def handle_return(request):
-    logger.debug('handle_return')
+    remote_addr = request.META.get('REMOTE_ADDR')
+    logger.debug('handle_return() {}'.format(remote_addr))
+    return HttpResponse('ok', content_type='text/plain')
 
 
 def handle_cancel(request):
-    logger.debug('handle_cancel')
+    remote_addr = request.META.get('REMOTE_ADDR')
+    logger.debug('handle_cancel() {}'.format(remote_addr))
+    return HttpResponse('ok', content_type='text/plain')
 
