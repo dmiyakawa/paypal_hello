@@ -6,7 +6,8 @@ from paypal_hello.settings import SERVER_FQDN
 from paypal.standard.forms import PayPalPaymentsForm
 
 from django.core.urlresolvers import reverse
-from django.shortcuts import render, render_to_response
+from django.http import HttpResponse
+from django.shortcuts import render_to_response
 
 from logging import getLogger
 
