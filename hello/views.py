@@ -8,6 +8,7 @@ from paypal.standard.forms import PayPalPaymentsForm
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
+from django.views.decorators.csrf import csrf_exempt
 
 from logging import getLogger
 
@@ -36,12 +37,14 @@ def handle_top(request):
     return render_to_response("payment.djhtml", context)
 
 
+@csrf_exempt
 def handle_return(request):
     remote_addr = request.META.get('REMOTE_ADDR')
     logger.debug('handle_return() {}'.format(remote_addr))
     return HttpResponse('ok', content_type='text/plain')
 
 
+@csrf_exempt
 def handle_cancel(request):
     remote_addr = request.META.get('REMOTE_ADDR')
     logger.debug('handle_cancel() {}'.format(remote_addr))
